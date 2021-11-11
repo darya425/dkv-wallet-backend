@@ -1,5 +1,5 @@
 const { NotFound } = require('http-errors');
-const { User } = require('../../models/users');
+const { User } = require('../../models/user');
 
 const updateBalance = async (req, res) => {
   const { _id } = req.user;
