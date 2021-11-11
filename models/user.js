@@ -9,7 +9,6 @@ const userSchema = Schema({
     type: String,
     required: [true, 'Password is required'],
     minlength: 6,
-    maxlength: 12,
   },
   email: {
     type: String,
@@ -41,7 +40,7 @@ userSchema.methods.comparePassword = function(password) {
 };
 
 const joiSchema = Joi.object({
-  password: Joi.string().min(6).max(12).required(),
+  password: Joi.string().min(6).required(),
   email: Joi.string().pattern(emailRegex).required(),
   name: Joi.string().min(1).max(12),
   currentBalance: Joi.number()
