@@ -11,8 +11,10 @@ const updateBalance = async (req, res) => {
   res.json({
     status: 'success',
     code: 200,
-    data: {
-      result
+    user: {
+      email: result.email,
+      name: result.name,
+      currentBalance: result.currentBalance,
     }
   });
 };
