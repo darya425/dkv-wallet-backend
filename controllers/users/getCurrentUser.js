@@ -13,7 +13,7 @@ const getCurrentUser = async(req, res) => {
     code: 200,
     user: {
       email: user.email,
-      subscription: user.subscription
+      name: user.name
     }
   });
 };
