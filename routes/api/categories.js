@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { categories } = require('../../controllers');
-const { controllerWrapper, authenticate } = require('../../middlewares');
+const { controllerWrapper } = require('../../middlewares');
 
-router.get('/expense', authenticate, controllerWrapper(categories.getExpenseCategories));
+router.get('/expense', controllerWrapper(categories.getExpenseCategories));
 
-router.get('/income', authenticate, controllerWrapper(categories.getIncomeCategories));
+// router.get('/income', controllerWrapper(categories.getIncomeCategories));
 
 module.exports = router;
