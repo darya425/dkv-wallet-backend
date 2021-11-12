@@ -9,10 +9,8 @@ const getAllTransactions = async (req, res) => {
   res.json({
     status: 'success',
     code: 200,
-    data: {
-      transactions,
-      quantity: transactions.length
-    }
+    transactions,
+    quantity: transactions.length
   });
 };
 
