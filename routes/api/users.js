@@ -6,6 +6,6 @@ const { balanceSchema } = require('../../models/user');
 
 router.get('/current', authenticate, controllerWrapper(users.getCurrentUser));
 
-router.patch('/balance', authenticate, validation(balanceSchema), controllerWrapper(users.updateBalance));
+// router.patch('/balance', authenticate, validation(balanceSchema), controllerWrapper(users.updateBalance));
 
 module.exports = router;
