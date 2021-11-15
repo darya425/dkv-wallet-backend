@@ -8,6 +8,6 @@ router.post('/', authenticate, validation(joiSchema), controllerWrapper(transact
 
 router.get('/', authenticate, controllerWrapper(transactions.getAllTransactions));
 
-router.post('/statistics', authenticate, controllerWrapper(transactions.getStatistics));
+router.get('/statistics', authenticate, controllerWrapper(transactions.getStatistics));
 
 module.exports = router;
