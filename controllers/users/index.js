@@ -1,6 +1,6 @@
 const getCurrentUser = require('./getCurrentUser');
 const updateBalance = require('./updateBalance');
-const getCurrentBalance = require('./getBalance');
+const getCurrentBalance = require('./getCurrentBalance');
 
 module.exports = {
   getCurrentUser,

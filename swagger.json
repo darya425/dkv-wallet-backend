@@ -152,29 +152,18 @@
       }
     },
     "/users/balance": {
-      "patch": {
+      "get": {
         "tags": ["Users"],
         "summary": "Get user's balance",
         "parameters": [],
         "security": [{ "Bearer": [] }],
-        "requestBody": {
-          "description": "Balance's object",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": ""
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": ""
+                  "$ref": "#/components/schemas/CurrentBalanceResponse"
                 }
               }
             }
@@ -259,7 +248,7 @@
       }
     },
     "/transactions/statistics": {
-      "get": {
+      "post": {
         "tags": ["Transactions"],
         "summary": "User's statistic",
         "parameters": [],
@@ -468,6 +457,19 @@
           }
         }
       },
+      "CurrentBalanceResponse": {
+        "type":"object",
+        "properties":{
+          "user": {
+            "type":"object",
+            "properties": {
+              "currentBalance": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
       "AddTransactionsRequest": {
         "type":"object",
         "required":["type", "category", "amount", "date"],
@@ -537,7 +539,6 @@
           }
         }
       },
-      "AllTransactionsRequest": {},
       "AllTransactionsResponse": {
         "type": "object",
         "properties": {
