@@ -9,7 +9,6 @@ const transactionSchema = Schema({
   },
   category: {
     type: String,
-    required: [true, 'Transaction category is required'],
   },
   amount: {
     type: Number,
@@ -34,7 +33,7 @@ const transactionSchema = Schema({
 
 const joiSchema = Joi.object({
   type: Joi.string().valid('income', 'expense').required(),
-  category: Joi.string().required(),
+  category: Joi.string(),
   amount: Joi.number().required(),
   date: Joi.string().isoDate().required(),
   comment: Joi.string(),
