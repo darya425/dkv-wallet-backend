@@ -1,7 +1,7 @@
 /*
-* As all the calculations and currentBalance update are done in the "addTransaction" controller,
-* there is no need in the separate "updateBalance" controller and the endpoint "PATCH/users/balance".
-*/
+ * As all the calculations and currentBalance update are done in the "addTransaction" controller,
+ * there is no need in the separate "updateBalance" controller and the endpoint "PATCH/users/balance".
+ */
 
 // const { NotFound } = require('http-errors');
 // const { User } = require('../../models/user');
