@@ -1,0 +1,702 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "Wallet",
+    "description": "Showing off swagger-ui-express",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "servers": [{ "url": "https://wallet-backend-g5.herokuapp.com" }],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authorization endpoints"
+    },
+    {
+      "name": "Users",
+      "description": "Users endpoints"
+    },
+    {
+      "name": "Transactions",
+      "description": "Transactions endpoints"
+    },
+    {
+      "name": "Categories",
+      "description": "Categories endpoints"
+    }
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User authentication",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Authentication's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Email or password is wrong",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "User logout",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "204": {
+            "description": "Successful operation",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/users/current": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get current user",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/users/balance": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get user's balance",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentBalanceResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          },
+          "404": {
+            "description": "User not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/transactions": {
+      "post": {
+        "tags": ["Transactions"],
+        "summary": "Add transaction",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddTransactionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddTransactionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          }
+        }
+      },
+      "get": {
+        "tags": ["Transactions"],
+        "summary": "User's transactions",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AllTransactionsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllTransactionsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/transactions/statistics": {
+      "post": {
+        "tags": ["Transactions"],
+        "summary": "User's statistic",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PeriodStatisticsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PeroidStatisticsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/categories/expense": {
+      "get": {
+        "tags": ["Categories"],
+        "summary": "Expense categories",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": ""
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/categories/income": {
+      "get": {
+        "tags": ["Categories"],
+        "summary": "Income categories",
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": ""
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty123"
+          },
+          "name":{
+            "type": "string",
+            "description": "User's name",
+            "example": "Den"
+          }
+        }
+      },
+      "RegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "currentBalance": {
+            "type":"string",
+            "description": "User's current balance",
+            "example": "0"
+          },
+          "userId": {
+            "type": "string",
+            "description": "User's id",
+            "example": "32143232436545474"
+          }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty123"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Token for auth",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI1ZmMyMDg1YmQwOTM2NTI4MTA3Y2UyNzQiLCJzaWQiOiI1ZmMyZDJmY2UxZDIwNTA2NzAyYmRkMjIiLCJpYXQiOjE2MDY2MDM1MTYsImV4cCI6MTYwNjYwNzExNn0.rJ_QjU4KvA76H96RHsvOBChK0Vjbd0NmqjMxdQVJIXB"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "email":{
+                "type":"string",
+                "description": "User's email",
+                "format":"email"
+              },
+              "name": {
+                "type": "string",
+                "description": "User's name",
+                "example": "den@mail.com"
+              }
+            }
+          }
+        }
+      },
+      "CurrentUserResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type":"string",
+                "description": "User's email",
+                "format":"email"
+              },
+              "name": {
+                "type":"string",
+                "description": "User's name",
+                "example":"Den"
+              }
+            }
+          }
+        }
+      },
+      "CurrentBalanceResponse": {
+        "type":"object",
+        "properties":{
+          "user": {
+            "type":"object",
+            "properties": {
+              "currentBalance": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "AddTransactionsRequest": {
+        "type":"object",
+        "required":["type", "category", "amount", "date"],
+        "properties": {
+          "type":{
+            "type": "string",
+            "description": "Type of transaction",
+            "example": "expense or income"
+          },
+          "category": {
+            "type": "string",
+            "description": "Category of type of transaction",
+            "example": "food"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Amount of transaction",
+            "example": 125
+          },
+          "date": {
+            "type": "string",
+            "description": "Date of transaction"
+          },
+          "comment": {
+            "type":"string"
+          }
+        }
+      },
+      "AddTransactionsResponse": {
+        "type":"object",
+        "properties":{
+          "result": {
+            "type":"object",
+            "properties":{
+              "type":{
+                "type": "string",
+                "description": "Type of transaction",
+                "example": "expense or income"
+              },
+              "category": {
+                "type": "string",
+                "description": "Category of type of transaction",
+                "example": "food"
+              },
+              "amount": {
+                "type": "number",
+                "description": "Amount of transaction",
+                "example": 125
+              },
+              "date": {
+                "type": "string",
+                "description": "Date of transaction"
+              },
+              "balanceState": {
+                "type":"number",
+                "description": "User's current balance"
+              },
+              "owner": {
+                "type":"string",
+                "example": "618d40954deb34bfe2054eb8"
+              },
+              "_id": {
+                "type":"string",
+                "example":"368d40954deb34bfe2054eb7"
+              }
+            }
+          }
+        }
+      },
+      "AllTransactionsResponse": {
+        "type": "object",
+        "properties": {
+          "transactions": {
+            "type": "array",
+            "description": "All user's transactions",
+            "items":{
+              "type":"object",
+              "properties":{
+                "_id": {
+                  "type": "string",
+                  "description": "Task's id",
+                  "example": "507f1f77bcf86cd799439011"
+                },
+                "type": {
+                  "type":"string",
+                  "example": "income"
+                },
+                "category": {
+                  "type": "string",
+                  "example":"food"
+                },
+                "amount": {
+                  "type": "number",
+                  "example": 1515
+                },
+                "date": {
+                  "type": "string"
+                },
+                "comment": {
+                  "type": "string"
+                },
+                "balanceState": {
+                  "type":"number",
+                  "example":5151
+                },
+                "owner": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type":"string",
+                      "example":"618d40954deb34bfe2054eb8"
+                    },
+                    "email":{
+                      "type":"string",
+                      "format":"email",
+                      "example":"den@mail.com"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "quantity": {
+            "type":"number"
+          }
+        }
+      },
+      "PeriodStatisticsRequest": {
+        "type":"object",
+        "required":["startDate", "endDate"],
+        "properties":{
+          "startDate": {
+            "type":"string"
+          },
+          "endDate": {
+            "type":"string"
+          }
+        }
+      },
+      "PeroidStatisticsResponse": {
+        "type":"object",
+        "properties":{
+          "result": {
+            "type":"array",
+            "items":{
+              "type":"object",
+              "properties":{
+                "_id": {
+                  "type": "string",
+                  "description": "Task's id",
+                  "example": "507f1f77bcf86cd799439011"
+                },
+                "type": {
+                  "type":"string",
+                  "example": "income"
+                },
+                "category": {
+                  "type": "string",
+                  "example":"food"
+                },
+                "amount": {
+                  "type": "number",
+                  "example": 1515
+                },
+                "date": {
+                  "type": "string"
+                },
+                "comment": {
+                  "type": "string"
+                },
+                "balanceState": {
+                  "type":"number",
+                  "example":5151
+                },
+                "owner": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type":"string",
+                      "example":"618d40954deb34bfe2054eb8"
+                    },
+                    "email":{
+                      "type":"string",
+                      "format":"email",
+                      "example":"den@mail.com"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "quantity": {
+            "type":"number"
+          }
+        }
+      },
+      "ExpenseCategoriesResponse": {
+        "type":"object",
+        "properties":{
+          "categories":{
+            "type":"array",
+            "items":{
+              "type":"object",
+              "properties":{
+                "_id": {
+                  "type":"string",
+                  "example":"507f1f77bcf86cd799439011"
+                },
+                "categoryName":{
+                  "type":"string",
+                  "example": "car"
+                },
+                "type":{
+                  "type":"string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

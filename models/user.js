@@ -18,6 +18,7 @@ const userSchema = Schema({
   },
   name: {
     type: String,
+    required: [true, 'Name is required'],
     minlength: 1,
     maxlength: 12,
   },
